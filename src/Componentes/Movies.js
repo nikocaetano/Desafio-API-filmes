@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import Carousel from 'nuka-carousel/lib/carousel';
+import * as S from '../Styled/Styled-movies'
 
 //criar a base URL
 const FilmesApi = axios.create({
@@ -63,7 +65,7 @@ export default class Movies extends Component {
     render() {
         return (
             <section>
-                <input onChange={this.handleChange} />
+                <S.input onChange={this.handleChange} />
                   {this.state.FilterMovies.map((item, index) => (
                       <div key={index}>
                           <ul>
@@ -72,8 +74,17 @@ export default class Movies extends Component {
                               <li>{item.vote_average}</li>
                           </ul>
                           < img src={item.image} alt='posters' />
+                          
                       </div>
                   ))}
+                  <Carousel wrapAround={true} slidesToShow={3}  
+                    autoplay={true} speed={600}>
+                  {this.state.movies.map((item, index) => (
+                    <div key={index}>
+                        <S.img src={item.image}/>
+                    </div>
+                  ))}
+                  </Carousel>
             </section>
         )
     }
